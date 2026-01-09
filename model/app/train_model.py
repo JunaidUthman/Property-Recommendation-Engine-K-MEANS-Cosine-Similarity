@@ -49,8 +49,8 @@ def prepare_data(df):
     X_processed = preprocessor.fit_transform(X)
     
     # 4. Save the preprocessor (scaler and encoder) for use on live user input
-    dump(preprocessor, 'models/preprocessor.joblib')
-    print("Preprocessor (Scaler + Encoder) saved to models/preprocessor.joblib")
+    dump(preprocessor, 'model/models/preprocessor.joblib')
+    print("Preprocessor (Scaler + Encoder) saved to model/models/preprocessor.joblib")
     
     return X_processed, df['Property_ID'].values
 
@@ -68,8 +68,8 @@ def train_and_save_kmeans(X_features, property_ids):
     cluster_labels = kmeans.labels_
     
     # 2. Save the trained K-Means model
-    dump(kmeans, 'models/k_means_model.joblib')
-    print("K-Means model saved to models/k_means_model.joblib")
+    dump(kmeans, 'model/models/k_means_model.joblib')
+    print("K-Means model saved to model/models/k_means_model.joblib")
     
     # 3. Create the crucial feature matrix for Stage 2 (Cosine Similarity)
     # Matrix format: [Property ID, Cluster ID, Feature Vector...]
@@ -80,15 +80,14 @@ def train_and_save_kmeans(X_features, property_ids):
     property_matrix = np.column_stack((property_ids_reshaped, cluster_labels_reshaped, X_features))
     
     # Save the matrix for fast loading by the FastAPI service
-    np.save('data/property_feature_matrix.npy', property_matrix)
-    print("Property feature matrix and cluster IDs saved to data/property_feature_matrix.npy")
+    np.save('model/data/property_feature_matrix.npy', property_matrix)
+    print("Property feature matrix and cluster IDs saved to model/data/property_feature_matrix.npy")
     print(f"Matrix shape: {property_matrix.shape}")
 
 
 if __name__ == '__main__':
-    # Adjust the path to the CSV based on where you run the script
     try:
-        data_path = 'data/properties_data.csv'
+        data_path = 'model/data/properties_data.csv'
         df = pd.read_csv(data_path)
     except FileNotFoundError:
         print(f"Error: Could not find CSV file at {data_path}. Ensure it exists.")
@@ -96,8 +95,8 @@ if __name__ == '__main__':
 
     # Create the 'models' directory if it doesn't exist
     import os
-    if not os.path.exists('models'):
-        os.makedirs('models')
+    if not os.path.exists('model/models'):
+        os.makedirs('model/models')
         
     X_features, property_ids = prepare_data(df)
     train_and_save_kmeans(X_features, property_ids)

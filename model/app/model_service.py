@@ -13,9 +13,9 @@ USER_QUERY_FEATURES = ['target_rent', 'min_total_rooms', 'target_sqft', 'search_
 TOP_N = 10 # Number of recommendations to return
 
 # --- Global Variables and Paths ---
-K_MEANS_PATH = 'models/k_means_model.joblib'
-PREPROCESSOR_PATH = 'models/preprocessor.joblib'
-FEATURE_MATRIX_PATH = 'data/property_feature_matrix.npy'
+K_MEANS_PATH = 'model/models/k_means_model.joblib'
+PREPROCESSOR_PATH = 'model/models/preprocessor.joblib'
+FEATURE_MATRIX_PATH = 'model/data/property_feature_matrix.npy'
 
 # These will be loaded once when the FastAPI application starts
 kmeans_model = None
