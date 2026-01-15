@@ -1,7 +1,7 @@
 @Library('Jenkins-shared-library') _
 
 mlModelPipeline(
-    appName: 'saaymo/property-recommendation-engine-k-means-cosine-similarity',
+    appName: 'property-recommendation-engine-k-means-cosine-similarity',
     hfRepo: 'saaymo/Property-Recommendation-Engine-K-MEANS-Cosine-Similarity',
     modelFiles: [
         [name: 'k_means_model.pkl', targetDir: 'model/models'],
