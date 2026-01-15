@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from typing import Dict, Any
-from .schemas import UserQuery, RecommendationResponse
-from .model_service import load_artifacts, get_recommendations
+from schemas import UserQuery, RecommendationResponse
+from model_service import load_artifacts, get_recommendations
 
 # Global state to hold artifacts or initialization info
 app_state: Dict[str, Any] = {}
